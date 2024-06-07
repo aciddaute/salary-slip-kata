@@ -31,4 +31,20 @@ describe("Salary slip", () => {
 
     expect(salarySlip.nationalInsuranceContributions).toBe("0€")
   })
+
+  it("DOES calculate the national insurance contributions if minimum amount IS reached", () => {
+    const employee = { name: "Rich Guy", id: 12347, annualSalary: 9060 }
+
+    const salarySlip = salarySlipGenerator.generateFor(employee)
+
+    expect(salarySlip.nationalInsuranceContributions).toBe("10€")
+  })
+
+  it("DOES calculate the national insurance contributions if minimum amount IS reached", () => {
+    const employee = { name: "Very rich Guy", id: 12347, annualSalary: 20000 }
+
+    const salarySlip = salarySlipGenerator.generateFor(employee)
+
+    expect(salarySlip.nationalInsuranceContributions).toBe("119.4€")
+  })
 })

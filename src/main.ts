@@ -11,14 +11,27 @@ export type SalarySlip = {
 }
 
 export class SalarySlipGenerator {
-  generateFor(employee: Employee): SalarySlip {
-    const grossSalary = Math.round((employee.annualSalary * 100) / 12) / 100
+  private static MINIMUM_TAXABLE_ANNUAL_SALARY_AMOUNT = 8060
+
+  generateFor({ annualSalary, id, name }: Employee): SalarySlip {
+    const grossSalary = this.calculateGrossSalary(annualSalary)
+    const nationalInsuranceContributions = this.calculateNationalInsuranceContribution(annualSalary)
 
     return {
       grossSalary: grossSalary + "€",
-      employeeId: employee.id,
-      employeeName: employee.name,
-      nationalInsuranceContributions: "0€",
+      employeeId: id,
+      employeeName: name,
+      nationalInsuranceContributions: nationalInsuranceContributions + "€",
     }
+  }
+
+  private calculateGrossSalary(annualSalary: number) {
+    return Math.round((annualSalary * 100) / 12) / 100
+  }
+
+  private calculateNationalInsuranceContribution(annualSalary: number) {
+    if (annualSalary <= SalarySlipGenerator.MINIMUM_TAXABLE_ANNUAL_SALARY_AMOUNT) return 0
+
+    return (annualSalary - SalarySlipGenerator.MINIMUM_TAXABLE_ANNUAL_SALARY_AMOUNT) * 0.01
   }
 }
