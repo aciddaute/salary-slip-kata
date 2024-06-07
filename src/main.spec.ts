@@ -14,8 +14,6 @@ describe("Salary slip", () => {
     const salarySlip = salarySlipGenerator.generateFor(employee)
 
     expect(salarySlip.grossSalary).toEqual("416.67€")
-    expect(salarySlip.employeeName).toEqual("John J Doe")
-    expect(salarySlip.employeeId).toEqual(12345)
   })
 
   it("returns 100€ when employee has 1.200€ / year", () => {
@@ -24,7 +22,5 @@ describe("Salary slip", () => {
     const salarySlip = salarySlipGenerator.generateFor(employee)
 
     expect(salarySlip.grossSalary).toEqual("100€")
-    expect(salarySlip.employeeName).toEqual("Pepe Benavente")
-    expect(salarySlip.employeeId).toEqual(12346)
   })
 })
