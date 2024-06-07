@@ -1,5 +1,7 @@
 export type Employee = {
   id: number
+  name: string
+  annualSalary: number
 }
 export type SalarySlip = {
   grossSalary: string
@@ -8,8 +10,12 @@ export type SalarySlip = {
 }
 export class SalarySlipGenerator {
   generateFor(employee: Employee): SalarySlip {
-    if (employee.id === 12346) return { grossSalary: "100€", employeeId: 12346, employeeName: "Pepe Benavente" }
+    const grossSalary = Math.round((employee.annualSalary * 100) / 12) / 100
 
-    return { grossSalary: "416.67€", employeeId: 12345, employeeName: "John J Doe" }
+    return {
+      grossSalary: grossSalary + "€",
+      employeeId: employee.id,
+      employeeName: employee.name,
+    }
   }
 }
