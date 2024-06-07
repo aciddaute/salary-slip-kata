@@ -1,3 +1,5 @@
+import { Euros } from "./Euros.js"
+
 export type Employee = {
   id: number
   name: string
@@ -26,12 +28,12 @@ export class SalarySlipGenerator {
   }
 
   private calculateGrossSalary(annualSalary: number) {
-    return Math.round((annualSalary * 100) / 12) / 100
+    return new Euros(Math.round((annualSalary * 100) / 12) / 100)
   }
 
   private calculateNationalInsuranceContribution(annualSalary: number) {
     if (annualSalary <= SalarySlipGenerator.MINIMUM_TAXABLE_ANNUAL_SALARY_AMOUNT) return 0
 
-    return (annualSalary - SalarySlipGenerator.MINIMUM_TAXABLE_ANNUAL_SALARY_AMOUNT) * 0.01
+    return new Euros((annualSalary - SalarySlipGenerator.MINIMUM_TAXABLE_ANNUAL_SALARY_AMOUNT) * 0.01)
   }
 }
